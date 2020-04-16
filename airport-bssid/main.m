@@ -53,7 +53,7 @@ int main(int argc, const char * argv[])
          */
         
         // args check and initialization
-        if (!(argc > 1)) dump_error(usage_string([NSString stringWithUTF8String:argv[0]]));
+        if (argc <= 1) dump_error(usage_string([NSString stringWithUTF8String:argv[0]]));
         NSString *interfaceName = [NSString stringWithUTF8String:argv[1]];
         NSString *bssid = nil;
         if (argc > 2) {
