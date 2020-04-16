@@ -74,7 +74,7 @@ int main(int argc, const char * argv[])
         // search for target bssid
         NSError *error = nil;
         NSSortDescriptor *nameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ssid" ascending:YES];
-        NSArray *scan = [[interface scanForNetworksWithSSID:nil error:&error] sortedArrayUsingDescriptors:[NSArray arrayWithObject:nameDescriptor]];
+        NSArray *scan = [[interface scanForNetworksWithSSID:nil error:&error] sortedArrayUsingDescriptors:@[nameDescriptor]];
         if (error)
             dump_error([NSString stringWithFormat:@"An error has been occurred while scanning networks: %@", error]);
         CWNetwork *targetNetwork = nil;
