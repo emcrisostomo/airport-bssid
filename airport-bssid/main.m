@@ -66,7 +66,7 @@ int main(int argc, const char * argv[])
         
         // interface check
         CWInterface *interface = [[[CWWiFiClient alloc] init] interfaceWithName:interfaceName];
-        if(interface.powerOn == NO )
+        if(!interface.powerOn)
             dump_error(@"The interface is down. Please activate the interface before connecting to network!");
         
         printf("Notice: The interface %s is in %s phyMode.\n", [interfaceName cStringUsingEncoding:NSUTF8StringEncoding], phyModeName(interface.activePHYMode));
