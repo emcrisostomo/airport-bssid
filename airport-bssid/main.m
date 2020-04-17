@@ -90,7 +90,8 @@ int main(int argc, char *argv[]) {
     if (!interface.powerOn)
       dump_error(@"The interface is down. Please activate the interface before connecting to network!");
 
-    printf("Notice: The interface %s is in %s phyMode.\n", [interface.interfaceName UTF8String], phyModeName(interface.activePHYMode));
+    printf("Interface: %s\n", [interface.interfaceName UTF8String]);
+    printf("PHY mode: %s.\n", phyModeName(interface.activePHYMode));
 
     // search for target bssid
     NSError *error = nil;
