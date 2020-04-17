@@ -8,7 +8,7 @@
 
 #import <CoreWLAN/CoreWLAN.h>
 
-void show_help();
+void show_help(void);
 
 void dump_error(NSString *message) {
   printf("%s\n", [message cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -83,9 +83,9 @@ int main(int argc, char *argv[]) {
     CWInterface *interface;
 
     if (ifName)
-      interface = [[[CWWiFiClient alloc] init] interfaceWithName:[NSString stringWithUTF8String:ifNameArg]];
+      interface = [[CWWiFiClient sharedWiFiClient] interfaceWithName:[NSString stringWithUTF8String:ifNameArg]];
     else
-      interface = [[[CWWiFiClient alloc] init] interface];
+      interface = [[CWWiFiClient sharedWiFiClient] interface];
 
     if (!interface.powerOn)
       dump_error(@"The interface is down. Please activate the interface before connecting to network!");
@@ -129,8 +129,9 @@ int main(int argc, char *argv[]) {
       dump_error(@"Could not connect to the network!");
 
     printf("Associated to network \"%s\" (BSSID: %s)\n", [targetNetwork.ssid cStringUsingEncoding:NSUTF8StringEncoding], [bssid cStringUsingEncoding:NSUTF8StringEncoding]);
+
+    return 0;
   }
-  return 0;
 }
 
 void show_help() {
