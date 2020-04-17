@@ -6,12 +6,9 @@
 //  Copyright (c) 2013 Shintaro Tanaka. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreWLAN/CoreWLAN.h>
 
-NSString *usage_string(NSString *arg0) {
-  return [NSString stringWithFormat:@"usage: %@ <ifname> [<bssid>] [<password>]", arg0];
-}
+void show_help();
 
 void dump_error(NSString *message) {
   printf("%s\n", [message cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -45,17 +42,21 @@ int main(int argc, char *argv[]) {
     char *bssidArg = NULL;
     char *passwordArg = NULL;
 
-    while ((c = getopt(argc, argv, ":b:i:p:")) != -1)
+    while ((c = getopt(argc, argv, ":b:hi:p:")) != -1)
       switch (c) {
         case 'b':
           bssidArg = optarg;
           break;
 
+        case 'h':
+          show_help();
+          return 0;
+
         case 'i':
           ifNameArg = optarg;
           break;
 
-      case 'p':
+        case 'p':
           passwordArg = optarg;
           break;
 
@@ -131,5 +132,17 @@ int main(int argc, char *argv[]) {
     printf("Associated to network \"%s\" (BSSID: %s)\n", [targetNetwork.ssid cStringUsingEncoding:NSUTF8StringEncoding], [bssid cStringUsingEncoding:NSUTF8StringEncoding]);
   }
   return 0;
+}
+
+void show_help() {
+  printf("airport-bssid\n");
+  printf("\n");
+  printf("Usage:\n");
+  printf("airport-bssid [-i ifname] [-b bssid] [-p password]\n");
+  printf("\n");
+  printf("See the man page for more information.\n");
+  printf("\n");
+  printf("Report bugs to <https://github.com/emcrisostomo/airport-bssid/issues>.\n");
+  printf("Home page: <https://github.com/emcrisostomo/airport-bssid>.\n");
 }
 
