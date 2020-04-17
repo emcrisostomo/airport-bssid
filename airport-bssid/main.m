@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
     CWInterface *interface;
 
     if (ifName)
-      interface = [[[CWWiFiClient alloc] init] interfaceWithName:[NSString stringWithUTF8String:ifName]];
+      interface = [[[CWWiFiClient alloc] init] interfaceWithName:[NSString stringWithUTF8String:ifNameArg]];
     else
       interface = [[[CWWiFiClient alloc] init] interface];
 
