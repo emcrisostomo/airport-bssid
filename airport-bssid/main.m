@@ -16,22 +16,21 @@ void dump_error(NSString *message) {
 }
 
 char const *phyModeName(enum CWPHYMode n) {
-  switch ((int) n) {
+  switch (n) {
     case kCWPHYModeNone:
       return "none";
-    case kCWPHYMode11n:
-      return "802.11n";
     case kCWPHYMode11a:
       return "802.11a";
-    case kCWPHYMode11ac:
-      return "802.11ac";
-    case kCWPHYMode11g:
-      return "802.11g";
     case kCWPHYMode11b:
       return "802.11b";
+    case kCWPHYMode11g:
+      return "802.11g";
+    case kCWPHYMode11n:
+      return "802.11n";
+    case kCWPHYMode11ac:
+      return "802.11ac";
     default:
       return "other/unknown";
-
   }
 }
 
