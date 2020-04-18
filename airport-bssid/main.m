@@ -84,8 +84,7 @@ int main(int argc, char *argv[]) {
     // interface check
     CWInterface *interface = getActiveInterfaceByName(ifNameArg, ifName);
 
-    printf("Interface: %s\n", [interface.interfaceName UTF8String]);
-    printf("PHY mode: %s.\n", phyModeName(interface.activePHYMode));
+
 
     // search for target bssid
     NSError *error = nil;
@@ -97,6 +96,8 @@ int main(int argc, char *argv[]) {
 
     CWNetwork *targetNetwork = nil;
 
+    printf("Interface: %s\n", [interface.interfaceName UTF8String]);
+    printf("PHY mode: %s.\n", phyModeName(interface.activePHYMode));
     printf("\x1B[0m***** Scanned networks *****\n");
     printf("%24s, %17s, %3s, RSSI(dBm)\n", "ESSID", "BSSID", "Ch");
 
@@ -118,14 +119,10 @@ int main(int argc, char *argv[]) {
     if (targetNetwork == nil)
       dump_error([NSString stringWithFormat:@"The target network \"%@\" could not be found.", bssid]);
 
-    // connection trial
     BOOL result = [interface associateToNetwork:targetNetwork password:password error:&error];
 
-    if (error)
+    if (error || !result)
       dump_error([NSString stringWithFormat:@"Could not connect to the network: %@", error]);
-
-    if (!result)
-      dump_error(@"Could not connect to the network!");
 
     printf("Associated to network \"%s\" (BSSID: %s)\n", [targetNetwork.ssid cStringUsingEncoding:NSUTF8StringEncoding], [bssid cStringUsingEncoding:NSUTF8StringEncoding]);
 
