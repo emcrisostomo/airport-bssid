@@ -84,8 +84,6 @@ int main(int argc, char *argv[]) {
     // interface check
     CWInterface *interface = getActiveInterfaceByName(ifNameArg, ifName);
 
-
-
     // search for target bssid
     NSError *error = nil;
     NSSortDescriptor *nameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ssid" ascending:YES];
