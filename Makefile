@@ -6,7 +6,7 @@ CFLAGS=      -Wall -Werror -v
 BUILD_DIR:=  Build
 TARGET=      $(BUILD_DIR)/airport-bssid
 
-$(TARGET): $(OBJECTS) | $(BUILD_DIR)
+$(TARGET): $(SRC) | $(BUILD_DIR)
 	$(CC) -o $(OBJECTS) $@ $(CFLAGS) $(LIB) $(FRAMEWORKS) -o $(TARGET) $(SRC)
 
 $(BUILD_DIR):
@@ -15,4 +15,4 @@ $(BUILD_DIR):
 .m.o:
 	$(CC) -c -Wall $< -o $@
 
-all: $(SRC) $(TARGET)
+all: $(TARGET)
