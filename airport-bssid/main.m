@@ -10,6 +10,8 @@
 
 void show_help(void);
 
+CWInterface *getActiveInterfaceByName(const char *ifNameArg, NSString *ifName);
+
 void dump_error(NSString *message) {
   printf("%s\n", [message cStringUsingEncoding:NSUTF8StringEncoding]);
   exit(1);
@@ -37,9 +39,9 @@ char const *phyModeName(enum CWPHYMode n) {
 int main(int argc, char *argv[]) {
   @autoreleasepool {
     int c;
-    char *ifNameArg = NULL;
-    char *bssidArg = NULL;
-    char *passwordArg = NULL;
+    char *ifNameArg = nil;
+    char *bssidArg = nil;
+    char *passwordArg = nil;
 
     while ((c = getopt(argc, argv, ":b:hi:p:")) != -1)
       switch (c) {
@@ -75,20 +77,12 @@ int main(int argc, char *argv[]) {
           abort();
       }
 
-    NSString *ifName = (ifNameArg == NULL ? nil : [NSString stringWithUTF8String:ifNameArg]);
-    NSString *bssid = (bssidArg == NULL ? nil : [NSString stringWithUTF8String:bssidArg]);
-    NSString *password = (passwordArg == NULL ? nil : [NSString stringWithUTF8String:passwordArg]);
+    NSString *ifName = (ifNameArg == nil ? nil : [NSString stringWithUTF8String:ifNameArg]);
+    NSString *bssid = (bssidArg == nil ? nil : [NSString stringWithUTF8String:bssidArg]);
+    NSString *password = (passwordArg == nil ? nil : [NSString stringWithUTF8String:passwordArg]);
 
     // interface check
-    CWInterface *interface;
-
-    if (ifName)
-      interface = [[CWWiFiClient sharedWiFiClient] interfaceWithName:[NSString stringWithUTF8String:ifNameArg]];
-    else
-      interface = [[CWWiFiClient sharedWiFiClient] interface];
-
-    if (!interface.powerOn)
-      dump_error(@"The interface is down. Please activate the interface before connecting to network!");
+    CWInterface *interface = getActiveInterfaceByName(ifNameArg, ifName);
 
     printf("Interface: %s\n", [interface.interfaceName UTF8String]);
     printf("PHY mode: %s.\n", phyModeName(interface.activePHYMode));
@@ -97,12 +91,15 @@ int main(int argc, char *argv[]) {
     NSError *error = nil;
     NSSortDescriptor *nameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ssid" ascending:YES];
     NSArray *scan = [[interface scanForNetworksWithSSID:nil error:&error] sortedArrayUsingDescriptors:@[nameDescriptor]];
+
     if (error)
       dump_error([NSString stringWithFormat:@"An error has been occurred while scanning networks: %@", error]);
+
     CWNetwork *targetNetwork = nil;
 
     printf("\x1B[0m***** Scanned networks *****\n");
     printf("%24s, %17s, %3s, RSSI(dBm)\n", "ESSID", "BSSID", "Ch");
+
     for (CWNetwork *network in scan) {
       if ([network.bssid isEqualToString:bssid]) {
         targetNetwork = network;
@@ -111,6 +108,7 @@ int main(int argc, char *argv[]) {
         printf("%s%24s, %17s, %3lu, %3ld\n", "\x1B[0m", [network.ssid cStringUsingEncoding:NSUTF8StringEncoding], [network.bssid cStringUsingEncoding:NSUTF8StringEncoding], (unsigned long) network.wlanChannel.channelNumber, (long) network.rssiValue);
       }
     }
+
     printf("\x1B[0m****************************\n");
 
     if (bssid == nil) {
@@ -133,6 +131,20 @@ int main(int argc, char *argv[]) {
 
     return 0;
   }
+}
+
+CWInterface *getActiveInterfaceByName(const char *ifNameArg, NSString *ifName) {
+  CWInterface *interface = nil;
+
+  if (ifName)
+    interface = [[CWWiFiClient sharedWiFiClient] interfaceWithName:[NSString stringWithUTF8String:ifNameArg]];
+  else
+    interface = [[CWWiFiClient sharedWiFiClient] interface];
+
+  if (!interface.powerOn)
+    dump_error(@"The interface is down. Please activate the interface before connecting to network!");
+
+  return interface;
 }
 
 void show_help() {
