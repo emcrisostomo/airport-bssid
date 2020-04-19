@@ -12,8 +12,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
   wifi_scanner *scanner = [[wifi_scanner alloc] init];
-  [scanner setArgc:self.argc];
-  [scanner setArgv:self.argv];
+  [scanner setConfig:self.config];
 
   [scanner scan];
 }

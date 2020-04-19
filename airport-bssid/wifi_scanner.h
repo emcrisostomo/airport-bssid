@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "airport_bssid_config.h"
 
 
 @interface wifi_scanner : NSObject
-@property(nonatomic) int argc;
 
-@property(nonatomic) char **argv;
+@property(nonatomic) struct airport_bssid_config config;
 
 - (void)scan;
+
 @end

@@ -30,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F48E4BDDD205A5132A79C58 /* airport_bssid_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = airport_bssid_config.h; sourceTree = "<group>"; };
 		518BF12617674FEE0063A7FA /* airport-bssid */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "airport-bssid"; sourceTree = BUILT_PRODUCTS_DIR; };
 		518BF12917674FEE0063A7FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		518BF12C17674FEE0063A7FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 				B29CF9BF064E25841CBA3358 /* wifi_scanner.m */,
 				B29CFDA8B601F228CFDD40B0 /* wifi_scanner.h */,
 				D982BC71244BAF7600F00BE6 /* entitlements.plist */,
+				3F48E4BDDD205A5132A79C58 /* airport_bssid_config.h */,
 			);
 			path = "airport-bssid";
 			sourceTree = "<group>";

@@ -5,10 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "airport_bssid_config.h"
 
 @interface location_delegate : NSObject <CLLocationManagerDelegate>
 
-@property(nonatomic) int argc;
-@property(nonatomic) char **argv;
+@property(nonatomic) struct airport_bssid_config config;
 
 @end
