@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		518BF12D17674FEE0063A7FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 518BF12C17674FEE0063A7FA /* main.m */; };
 		518BF13117674FEE0063A7FA /* airport_bssid.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 518BF13017674FEE0063A7FA /* airport_bssid.1 */; };
 		518BF138176770A90063A7FA /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518BF137176770A90063A7FA /* CoreWLAN.framework */; };
+		B29CF4E5FE50E4F7A634C548 /* wifi_scanner.m in Sources */ = {isa = PBXBuildFile; fileRef = B29CF9BF064E25841CBA3358 /* wifi_scanner.m */; };
+		B29CF5734EBE5567476A76BA /* location_delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B29CF433DF85F7F5E353D08C /* location_delegate.m */; };
+		B29CFF0A690D5E71AF8CBF6D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29CF98559DEDA10E764F6BD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +36,12 @@
 		518BF12F17674FEE0063A7FA /* airport-bssid-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "airport-bssid-Prefix.pch"; sourceTree = "<group>"; };
 		518BF13017674FEE0063A7FA /* airport_bssid.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = airport_bssid.1; sourceTree = "<group>"; };
 		518BF137176770A90063A7FA /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		B29CF433DF85F7F5E353D08C /* location_delegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = location_delegate.m; sourceTree = "<group>"; };
+		B29CF98559DEDA10E764F6BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B29CF9BF064E25841CBA3358 /* wifi_scanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wifi_scanner.m; sourceTree = "<group>"; };
+		B29CFDA8B601F228CFDD40B0 /* wifi_scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wifi_scanner.h; sourceTree = "<group>"; };
+		B29CFDD601F792B3AB539F40 /* location_delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = location_delegate.h; sourceTree = "<group>"; };
+		D982BC71244BAF7600F00BE6 /* entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +51,7 @@
 			files = (
 				518BF138176770A90063A7FA /* CoreWLAN.framework in Frameworks */,
 				518BF12A17674FEE0063A7FA /* Foundation.framework in Frameworks */,
+				B29CFF0A690D5E71AF8CBF6D /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				518BF12917674FEE0063A7FA /* Foundation.framework */,
+				B29CF98559DEDA10E764F6BD /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -80,6 +91,11 @@
 				518BF12C17674FEE0063A7FA /* main.m */,
 				518BF13017674FEE0063A7FA /* airport_bssid.1 */,
 				518BF12E17674FEE0063A7FA /* Supporting Files */,
+				B29CF433DF85F7F5E353D08C /* location_delegate.m */,
+				B29CFDD601F792B3AB539F40 /* location_delegate.h */,
+				B29CF9BF064E25841CBA3358 /* wifi_scanner.m */,
+				B29CFDA8B601F228CFDD40B0 /* wifi_scanner.h */,
+				D982BC71244BAF7600F00BE6 /* entitlements.plist */,
 			);
 			path = "airport-bssid";
 			sourceTree = "<group>";
@@ -122,7 +138,7 @@
 				ORGANIZATIONNAME = "Shintaro Tanaka";
 			};
 			buildConfigurationList = 518BF12117674FEE0063A7FA /* Build configuration list for PBXProject "airport-bssid" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -145,6 +161,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				518BF12D17674FEE0063A7FA /* main.m in Sources */,
+				B29CF5734EBE5567476A76BA /* location_delegate.m in Sources */,
+				B29CF4E5FE50E4F7A634C548 /* wifi_scanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,20 +264,30 @@
 		518BF13517674FEE0063A7FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "airport-bssid/entitlements.plist";
 				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "airport-bssid/airport-bssid-Prefix.pch";
+				PRODUCT_BUNDLE_IDENTIFIER = com.thegreyblog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		518BF13617674FEE0063A7FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "airport-bssid/entitlements.plist";
 				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "airport-bssid/airport-bssid-Prefix.pch";
+				PRODUCT_BUNDLE_IDENTIFIER = com.thegreyblog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
